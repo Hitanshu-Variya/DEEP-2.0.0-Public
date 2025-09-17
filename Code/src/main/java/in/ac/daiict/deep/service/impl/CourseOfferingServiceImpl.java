@@ -1,5 +1,6 @@
 package in.ac.daiict.deep.service.impl;
 
+import in.ac.daiict.deep.constant.response.ResponseMessage;
 import in.ac.daiict.deep.constant.response.ResponseStatus;
 import in.ac.daiict.deep.dto.CourseOfferingDto;
 import in.ac.daiict.deep.entity.CourseOffering;
@@ -32,7 +33,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         ResponseDto status=dataLoader.getCourseForProgram(new ByteArrayInputStream(courseOfferData),courseOffers);
         if(status.getStatus()!= ResponseStatus.OK) return status;
         courseOfferingRepo.saveAll(courseOffers);
-        return new ResponseDto(ResponseStatus.OK,"Data Inserted Successfully!");
+        return new ResponseDto(ResponseStatus.OK,"Seat Matrix: "+ ResponseMessage.UPLOAD_SUCCESS);
     }
 
     @Override
