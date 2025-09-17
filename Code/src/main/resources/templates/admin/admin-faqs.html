@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="context-path" th:content="@{/}" />
+  <title>DEEP - Admin FAQs</title>
+  <link rel="icon" th:href="@{/admin/images/DEEP Logo.png}" type="image/png">
+  <link th:href="@{/css/output.css}" rel="stylesheet">
+</head>
+
+<body class="min-h-screen" style="background: linear-gradient(to bottom, #FFFFFF, #D4DFED);">
+<div class="mx-auto">
+  <!-- Header -->
+  <div th:replace="~{common/admin-navbar::admin-navbar}"></div>
+</div>
+
+<!-- Main Content -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+  <div class="text-center mb-6 sm:mb-12 text-xl sm:text-3xl font-bold text-gray-800">
+    Frequently Asked Questions
+  </div>
+
+  <!-- FAQ Items -->
+  <div class="grid gap-4 sm:gap-6" id="faqContainer">
+    <!-- FAQ items will be populated by JavaScript -->
+  </div>
+</main>
+
+<script th:src="@{/common/js/general-utility.js}"></script>
+<script th:src="@{/common/js/navbar.js}"></script>
+<script th:src="@{/admin/js/admin-faqs.js}"></script>
+</body>
+
+</html>

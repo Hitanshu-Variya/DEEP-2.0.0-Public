@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="context-path" th:content="@{/}" />
+  <title>DEEP - Preference Submission</title>
+  <link rel="icon" th:href="@{/admin/images/DEEP Logo.png}" type="image/png">
+  <link th:href="@{/css/output.css}" rel="stylesheet">
+</head>
+<body class="min-h-screen" style="background: linear-gradient(to bottom, #FFFFFF, #D4DFED);">
+
+<!-- Toast Display -->
+<div th:replace="~{common/toast-display::toast-display}"></div>
+
+<div class="mx-auto">
+   <!-- Header -->
+   <div th:replace="~{common/student-navbar::student-registration-navbar}"></div>
+</div>
+
+<main class="backdrop-blur-lg flex flex-col justify-center items-center px-7 py-6">
+  <!-- Heading -->
+  <span class="text-3xl font-bold text-gray-800 mb-10">Preference Form</span>
+
+  <!-- Progress Steps -->
+  <div class="w-full max-w-xl px-6 mb-6">
+    <div class="relative flex justify-between items-center">
+
+      <!-- Step 1 -->
+      <div class="flex flex-col items-center z-10">
+        <div id="progress-1" class="w-8 h-8 rounded-full bg-ACCEFF flex items-center justify-center transition-all duration-700 ease-in-out" style="box-shadow: inset 0 0 0 5px #1321EA; transition: box-shadow 0.4s ease-in-out;"></div>
+        <span class="mt-2 text-xs sm:text-sm text-blue-700 font-medium text-center">Academic Info</span>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="flex flex-col items-center z-10">
+        <div id="progress-2" class="w-8 h-8 rounded-full bg-ACCEFF flex items-center justify-center transition-all duration-700 ease-in-out" style="transition: box-shadow 0.4s ease-in-out;"></div>
+        <span class="mt-2 text-xs sm:text-sm text-blue-700 font-medium text-center">Course Preferences</span>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="flex flex-col items-center z-10">
+        <div id="progress-3" class="w-8 h-8 rounded-full bg-ACCEFF flex items-center justify-center transition-all duration-700 ease-in-out" style="transition: box-shadow 0.4s ease-in-out;"></div>
+        <span class="mt-2 text-xs sm:text-sm text-blue-700 font-medium text-center">Slot Preferences</span>
+      </div>
+
+      <!-- Line between Step 1 and Step 2 -->
+      <div id="line-2" class="absolute top-4 left-[20%] sm:left-[14%] w-[20%] sm:w-[30%] h-1 bg-ACCEFF z-0 transition-all duration-700 ease-in-out"></div>
+
+      <!-- Line between Step 2 and Step 3 -->
+      <div id="line-3" class="absolute top-4 left-[58%] sm:left-[55%] w-[20%] sm:w-[30%] h-1 bg-ACCEFF z-0 transition-all duration-700 ease-in-out"></div>
+
+    </div>
+  </div>
+
+  <!-- Form-1  -->
+  <div id="step-1" class="w-full max-w-7xl">
+    <div class="bg-[#B8D7FF] w-full max-w-7xl rounded-3xl px-6 py-8 sm:py-12 shadow-lg">
+      <!-- Top Row: Semester and Program -->
+      <div class="flex flex-row flex-wrap md:justify-between gap-x-10 gap-y-4 mb-8">
+        <!-- Semester -->
+        <div class="flex flex-1 justify-center items-center" th:if="${semester != null}">
+          <label class="text-lg font-semibold text-gray-800 w-28">Semester :</label>
+          <input type="text" th:value="${semester}" readonly
+                 class="px-3 py-1 border-2 border-gray-300 rounded-lg bg-gray-200 text-center font-medium w-16 cursor-not-allowed" />
+        </div>
+
+        <!-- Program -->
+        <div class="flex flex-1 justify-center items-center" th:if="${program != null}">
+          <label class="text-lg font-semibold text-gray-800 w-28">Program :</label>
+          <input type="text" th:value="${program}" readonly
+                 class="px-3 py-1 border-2 border-gray-300 rounded-lg bg-gray-200 text-center font-medium w-24 cursor-not-allowed" />
+        </div>
+      </div>
+
+      <!-- Main Grid Section -->
+      <div class="flex flex-col md:flex-row gap-10">
+        <!-- Left Section (Semester + Institute Req) -->
+        <div class="flex flex-col space-y-10 w-full md:w-1/2">
+          <!-- Institute Requirements -->
+          <div class="flex flex-col items-center justify-center space-y-4">
+            <h2 class="text-xl font-bold text-center text-gray-800">Institute Requirements:</h2>
+            <div class="flex flex-col justify-center items-center gap-y-3">
+              <script th:inline="javascript">
+                let instituteRequirements = /*[[${instituteRequirements}]]*/ [];
+              </script>
+              <div id="requirementsContainer" class="space-y-3 mt-4"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Section (Program + Academic Req) -->
+        <div class="flex flex-col space-y-10 w-full md:w-1/2">
+          <!-- Academic Requirements -->
+          <div class="flex flex-col items-center justify-center space-y-4">
+            <h2 class="text-xl font-bold text-center text-gray-800">Academic Requirements:</h2>
+            <div class="flex flex-col justify-center items-center gap-y-3">
+              <div id="categoryInputsContainer" class="space-y-3 mt-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Button -->
+    <div class="flex justify-center mt-8">
+      <button onclick="nextStep()" class="bg-[#684EA4] text-white px-6 py-2 rounded-full font-semibold text-md flex items-center space-x-2 transition-colors duration-200 shadow-lg">
+        <span>Proceed to Next Page</span>
+        <img th:src="@{/student/images/right-arrow.svg}" alt="Right Arrow" class="w-4 h-4">
+      </button>
+    </div>
+  </div>
+
+  <!-- Form-2  -->
+  <div id="step-2" class="hidden">
+    <div class="max-w-7xl mx-auto bg-[#c4d8f5] rounded-2xl shadow-lg overflow-hidden">
+      <div class="flex flex-col lg:flex-row">
+        <!-- Left Sidebar - Dynamic Slots -->
+        <div id="slotContainer" class="grid grid-cols-4 gap-y-4 md:grid-cols-8 gap-x-4 md:gap-y-0 lg:block lg:w-32 bg-blue-200 p-4 lg:p-5 lg:space-y-3">
+          <!-- Extract and Sort Unique Slots -->
+          <th:block th:with="uniqueSlots=${#sets.toSet(availableCourses.![slot])}, sortedSlots=${#lists.sort(uniqueSlots)}">
+            <div th:each="slot, iterStat : ${sortedSlots}"
+                 id="slot-panel"
+                 th:class="'slot text-xs md:text-md font-semibold text-center py-3 px-4 rounded-lg shadow-md cursor-pointer ' + (${iterStat.index == 0} ? 'bg-blue-500' : 'bg-cyan-300')"
+                 th:data-slot="${slot}">
+              <span th:text="'Slot-' + ${slot}">Slot</span>
+            </div>
+          </th:block>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 bg-blue-300 p-4 lg:p-6">
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- Table Header -->
+            <div class="bg-blue-500 text-white">
+              <div class="grid grid-cols-8 gap-0 text-xxs md:text-xs lg:text-sm font-semibold">
+                <div class="p-1 lg:p-3 text-center border-r border-blue-300">ACTION</div>
+                <div class="p-1 lg:p-3 text-center border-r border-blue-300">PRIORITY</div>
+                <div class="p-1 lg:p-3 text-center border-r border-blue-300">COURSE CODE</div>
+                <div class="p-1 lg:p-3 text-center border-r border-blue-300 col-span-2">COURSE NAME</div>
+                <div class="p-1 lg:p-3 text-center border-r border-blue-300">PROGRAM</div>
+                <div class="p-1 lg:p-3 text-center border-r border-blue-300">CATEGORY</div>
+                <div class="p-1 lg:p-3 text-center">CREDITS</div>
+              </div>
+            </div>
+
+            <!-- Table Body -->
+            <div class="bg-blue-200">
+              <!-- Selected Courses -->
+              <div id="selectedCourses"><div class="h-4"></div></div>
+
+              <!-- Separator -->
+              <div class="border-b-4 border-black"></div>
+
+              <!-- Available Courses -->
+              <div id="availableCourses">
+                <th:block th:with="uniqueSlots=${#sets.toSet(availableCourses.![slot])}, sortedSlots=${#lists.sort(uniqueSlots)}">
+                  <div th:each="slot : ${sortedSlots}"
+                       th:id="'slot-' + ${slot}"
+                       th:class="'slot-courses ' + (${slot == sortedSlots[0]} ? '' : 'hidden')">
+
+                    <div th:each="course : ${availableCourses}"
+                         th:if="${course.slot == slot}"
+                         class="grid grid-cols-8 gap-0 text-xxs md:text-xs lg:text-sm border-b border-gray-300 course-row"
+                         th:data-course-id="${course.cid}"
+                         th:data-slot="${course.slot}">
+
+                      <div class="p-2 lg:p-3 flex justify-center items-center">
+                        <button class="course-btn text-white bg-blue-600 hover:bg-blue-700 px-1 py-1 md:px-2 md:py-1 rounded-md text-xxs md:text-xs lg:text-sm font-semibold transition-colors"
+                                th:data-cid="${course.cid}"
+                                th:data-slot="${course.slot}"
+                                th:data-name="${course.name}"
+                                th:data-program="${course.program}"
+                                th:data-category="${course.category}"
+                                th:data-credits="${course.credits}">
+                          ADD
+                        </button>
+                      </div>
+                      <div class="p-2 lg:p-3 text-center font-medium">-</div>
+                      <div class="p-2 lg:p-3 text-center font-medium" th:text="${course.cid}">Course Code</div>
+                      <div class="p-2 lg:p-3 col-span-2 font-medium" th:text="${course.name}">Course Name</div>
+                      <div class="p-2 lg:p-3 text-center font-medium" th:text="${course.program}">Program</div>
+                      <div class="p-2 lg:p-3 text-center font-medium" th:text="${course.category}">Category</div>
+                      <div class="p-2 lg:p-3 text-center font-medium" th:text="${course.credits}">Credits</div>
+                    </div>
+                  </div>
+                </th:block>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Checkbox -->
+          <div class="mt-6 flex justify-center items-center">
+            <input type="checkbox"
+                   id="noSlotCourseCheckbox"
+                   onchange="handleNoSlotCourseCheckbox(this)"
+                   class="w-4 h-4 md:w-5 md:h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+            <label for="noSlotCourseCheckbox" class="ml-3 text-xs md:text-base font-medium text-gray-700">
+              I don't want to take any course from this slot.
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center items-center gap-6">
+      <div class="flex justify-center mt-8">
+        <button onclick="prevStep()" class="bg-[#684EA4] text-white px-6 py-2 rounded-full font-semibold text-md flex items-center space-x-2 transition-colors duration-200 shadow-lg">
+          <img th:src="@{/student/images/left-arrow.svg}" alt="Left Arrow" class="w-5 h-5 md:w-4 md:h-4">
+          <span class="text-sm md:text-md">Proceed to Previous Page</span>
+        </button>
+      </div>
+
+      <div class="flex justify-center mt-8">
+        <button onclick="nextStep()" class="bg-[#684EA4] text-white px-6 py-2 rounded-full font-semibold text-md flex items-center space-x-2 transition-colors duration-200 shadow-lg">
+          <span class="text-sm md:text-md">Proceed to Next Page</span>
+          <img th:src="@{/student/images/right-arrow.svg}" alt="Right Arrow" class="w-5 h-5 md:w-4 md:h-4">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form-3  -->
+  <div id="step-3" class="hidden">
+    <h1 class="text-2xl font-bold text-center text-black mt-5 mb-4">Slot Preference Order</h1>
+
+    <!-- Main Container -->
+    <div class="bg-blue-300 rounded-3xl px-8 py-6 shadow-lg mb-8"
+         th:with="slotList=${availableCourses.![slot]},
+              numericSlots=${#lists.sort(slotList)},
+              maxSlot=${numericSlots[numericSlots.size() - 1]}">
+
+      <div class="flex flex-col justify-center items-center space-y-5">
+
+        <!-- Preference inputs from 1 to maxSlot -->
+        <div th:each="prefNum : ${#numbers.sequence(1, maxSlot)}" class="flex items-center space-x-2">
+          <label class="text-lg font-bold text-black w-40"
+                 th:text="'Preference - ' + ${prefNum} + ' :'">
+            Preference
+          </label>
+          <input type="number"
+                 min="1" th:max="${maxSlot}"
+                 class="slot-preference-input px-3 py-1 border-2 border-purple-300 rounded-md bg-white text-center font-medium text-lg md:w-20 focus:outline-none focus:ring-2 focus:ring-purple-500 appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flex gap-6">
+      <div class="flex justify-center mt-2">
+        <button onclick="prevStep()" class="bg-[#684EA4] text-white px-6 py-2 rounded-full font-semibold text-md flex items-center space-x-2 transition-colors duration-200 shadow-lg">
+          <img th:src="@{/student/images/left-arrow.svg}" alt="Left Arrow" class="w-5 h-5 md:w-4 md:h-4">
+          <span class="text-sm md:text-md">Proceed to Previous Page</span>
+        </button>
+      </div>
+
+      <form id="myForm" th:action="@{/student/submit-preferences}" method="post">
+        <!-- Hidden inputs to hold the strings -->
+        <input type="hidden" name="studentRequirements" id="studentRequirements" />
+        <input type="hidden" name="coursePreferences" id="coursePreferences" />
+        <input type="hidden" name="slotPreferences" id="slotPreferences" />
+
+        <div class="flex justify-center mt-2">
+          <button type="button" id="submitButton"
+                  class="bg-[#684EA4] text-white px-6 py-2 rounded-full font-semibold text-md flex items-center space-x-2 transition-colors duration-200 shadow-lg cursor-pointer">
+            <span class="text-sm md:text-md">Submit Response</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Confirmation Modal -->
+      <div id="confirmModal"
+           class="fixed inset-0 z-[100] hidden bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center">
+        <div class="bg-white rounded-xl p-6 max-w-sm w-full shadow-2xl border-l-10 border-yellow-300">
+          <h2 class="text-xl font-bold text-yellow-600 mb-4 flex items-center gap-2">
+            ⚠️ Final Submission!
+          </h2>
+          <p class="text-gray-700 mb-2">Are you sure you want to submit your response?</p>
+          <p class="text-red-500 font-medium mb-6">You won't be able to change your preferences later. This is a one-time submission.</p>
+          <div class="flex justify-end gap-4">
+            <button id="cancelConfirm"
+                    class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
+              Cancel
+            </button>
+            <button id="confirmSubmit"
+                    class="px-4 py-2 rounded-md bg-yellow-500 text-white cursor-pointer transition">
+              Yes, Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script th:src="@{/common/js/general-utility.js}"></script>
+<script th:src="@{/common/js/navbar.js}"></script>
+<script th:src="@{/common/js/status-response.js}"></script>
+<script th:src="@{/student/js/registration.js}"></script>
+</body>
+</html>

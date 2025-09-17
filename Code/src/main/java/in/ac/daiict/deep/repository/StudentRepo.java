@@ -1,0 +1,29 @@
+package in.ac.daiict.deep.repository;
+
+import in.ac.daiict.deep.constant.database.DBConstants;
+import in.ac.daiict.deep.entity.Student;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface StudentRepo extends JpaRepository<Student,String>{
+    @Override
+    @Modifying
+    @Query(value = "DELETE FROM "+DBConstants.WORKING_SCHEMA+"."+DBConstants.STUDENT_TABLE,nativeQuery = true)
+    void deleteAll();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Student s SET s.hasEnrolled = true WHERE s.sid = :sid")
+    void updateHasEnrolled(@Param("sid") String sid);
+
+    long countBySemester(int semester);
+    long countByHasEnrolled(boolean hasEnrolled);
+    Optional<Student> findById(String sid);
+    List<Student> findByProgramAndSemester(String program, int semester);
+}

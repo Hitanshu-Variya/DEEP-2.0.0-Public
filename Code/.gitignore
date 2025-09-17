@@ -1,0 +1,47 @@
+HELP.md
+target
+.mvn/wrapper/maven-wrapper.properties
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### application-properties ###
+src/main/resources/application.properties
+src/main/resources/application-prod.properties
+src/main/resources/keystore.p12
+src/main/java/in/ac/daiict/deep/tmp
+
+### Tailwind - Production ###
+node_modules
+src/main/resources/tailwind-src
+package.json
+package-lock.json
+postcss.config.js
+tailwind.config.js

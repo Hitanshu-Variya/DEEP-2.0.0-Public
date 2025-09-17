@@ -1,0 +1,153 @@
+<!--Authentication Navbar Design-->
+<header class="bg-[#96D6FF] px-4 md:px-8 py-1 sticky top-0 z-[5]" th:fragment="student-authenticate-navbar">
+  <div class="flex justify-between items-center">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img th:src="@{/admin/images/DEEP Logo.png}" alt="DEEP Logo" class="w-8 h-8 md:w-12 md:h-12">
+      <div>
+        <h1 class="text-xl lg:text-2xl font-bold text-gray-800 mb-[-3px]">DEEP</h1>
+        <p class="text-[0.7rem] text-[#021C9F]">DAU Elective Enrollment Portal</p>
+      </div>
+    </div>
+</header>
+
+<!--General Purpose Navbar Design-->
+<header class="bg-[#96D6FF] px-4 md:px-8 py-1" th:fragment="student-navbar">
+  <div class="flex justify-between items-center">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img th:src="@{/admin/images/DEEP Logo.png}" alt="DEEP Logo" class="w-8 h-8 md:w-12 md:h-12">
+      <div>
+        <h1 class="text-xl lg:text-2xl font-bold text-gray-800 mb-[-3px]">DEEP</h1>
+        <p class="text-[0.7rem] text-[#021C9F]">DAU Elective Enrollment Portal</p>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Icon -->
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-[#080049] text-3xl focus:outline-none">
+        ☰
+      </button>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-2 md:gap-4 lg:gap-8">
+      <a th:href="@{/student/home-page}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">Home</a>
+      <a th:href="@{/student/my-preferences}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">View Preferences</a>
+      <a th:href="@{/student/my-allocation-result}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">Allocation Result</a>
+      <a th:href="@{#contact-section}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">Contact</a>
+      <a th:href="@{/student/faqs}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">FAQs</a>
+      <form method="post" th:action="@{/logout}" style="display: inline;">
+        <!-- CSRF token will be automatically added by Spring Security if using Thymeleaf -->
+        <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit"
+                class="text-xs sm:text-base md:text-sm bg-[#3F0F83] text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer">
+          Logout
+        </button>
+      </form>
+    </nav>
+  </div>
+
+  <!-- Mobile Nav (Dropdown) -->
+  <div id="menu" class="md:hidden hidden absolute right-8 top-12 mt-2 bg-white rounded-lg shadow-lg p-4 w-56 z-50 animate-fade-in">
+    <a th:href="@{/student/home-page}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">Home</a>
+    <a th:href="@{/student/my-preferences}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">View Preferences</a>
+    <a th:href="@{/student/my-allocation-result}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">Allocation Result</a>
+    <a th:href="@{#contact-section}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">Contact</a>
+    <a th:href="@{/student/faqs}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">FAQs</a>
+    <form method="post" th:action="@{/logout}" style="display: inline;">
+      <!-- CSRF token will be automatically added by Spring Security if using Thymeleaf -->
+      <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      <button type="submit"
+              class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200 cursor-pointer">
+        Logout
+      </button>
+    </form>
+  </div>
+</header>
+
+<!--Registration Process Navbar Design-->
+<header class="bg-[#96D6FF] px-4 md:px-8 py-1" th:fragment="student-registration-navbar">
+  <div class="flex justify-between items-center">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img th:src="@{/admin/images/DEEP Logo.png}" alt="DEEP Logo" class="w-8 h-8 md:w-12 md:h-12">
+      <div>
+        <h1 class="text-xl lg:text-2xl font-bold text-gray-800 mb-[-3px]">DEEP</h1>
+        <p class="text-[0.7rem] text-[#021C9F]">DAU Elective Enrollment Portal</p>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Icon -->
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-[#080049] text-3xl focus:outline-none">
+        ☰
+      </button>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-2 md:gap-4 lg:gap-8">
+      <a th:href="@{/student/home-page}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">Home</a>
+      <a th:href="@{/student/faqs}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">FAQs</a>
+    </nav>
+  </div>
+
+  <!-- Mobile Nav (Dropdown) -->
+  <div id="menu" class="md:hidden hidden absolute right-8 top-12 mt-2 bg-white rounded-lg shadow-lg p-4 w-56 z-50 animate-fade-in">
+    <a th:href="@{/student/home-page}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">Home</a>
+    <a th:href="@{/student/faqs}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">FAQs</a>
+  </div>
+</header>
+
+<!--Preference related Navbar Design-->
+<header class="bg-[#96D6FF] px-4 md:px-8 py-1" th:fragment="student-preference-related-navbar">
+  <div class="flex justify-between items-center">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img th:src="@{/admin/images/DEEP Logo.png}" alt="DEEP Logo" class="w-8 h-8 md:w-12 md:h-12">
+      <div>
+        <h1 class="text-xl lg:text-2xl font-bold text-gray-800 mb-[-3px]">DEEP</h1>
+        <p class="text-[0.7rem] text-[#021C9F]">DAU Elective Enrollment Portal</p>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Icon -->
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-[#080049] text-3xl focus:outline-none">
+        ☰
+      </button>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-2 md:gap-4 lg:gap-8">
+      <a th:href="@{/student/home-page}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">Home</a>
+      <a th:href="@{/student/my-preferences}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">View Preferences</a>
+      <a th:href="@{/student/my-allocation-result}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">Allocation Result</a>
+      <a th:href="@{/student/faqs}" class="text-xs sm:text-base md:text-sm text-[#080049] hover:text-indigo-600 font-medium transition duration-300">FAQs</a>
+      <form method="post" th:action="@{/logout}" style="display: inline;">
+        <!-- CSRF token will be automatically added by Spring Security if using Thymeleaf -->
+        <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit"
+                class="text-xs sm:text-base md:text-sm bg-[#3F0F83] text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer">
+          Logout
+        </button>
+      </form>
+    </nav>
+  </div>
+
+  <!-- Mobile Nav (Dropdown) -->
+  <div id="menu" class="md:hidden hidden absolute right-8 top-12 mt-2 bg-white rounded-lg shadow-lg p-4 w-56 z-50 animate-fade-in">
+    <a th:href="@{/student/home-page}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">Home</a>
+    <a th:href="@{/student/my-preferences}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">View Preferences</a>
+    <a th:href="@{/student/my-allocation-result}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">Allocation Result</a>
+    <a th:href="@{/student/faqs}" class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200">FAQs</a>
+    <form method="post" th:action="@{/logout}" style="display: inline;">
+      <!-- CSRF token will be automatically added by Spring Security if using Thymeleaf -->
+      <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      <button type="submit"
+              class="block text-[#080049] text-base font-medium py-1 hover:text-indigo-600 transition duration-200 cursor-pointer">
+        Logout
+      </button>
+    </form>
+  </div>
+</header>

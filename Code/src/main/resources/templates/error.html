@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="context-path" th:content="@{/}" />
+  <title>DEEP - 404 Not Found</title>
+  <link rel="icon" th:href="@{/admin/images/DEEP Logo.png}" type="image/png">
+  <link th:href="@{/css/output.css}" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-b from-white to-[#D4DFED] flex items-center justify-center">
+<main class="backdrop-blur-lg flex flex-col justify-center items-center w-full h-full p-4 space-y-6 text-center">
+
+  <!-- 404 Image -->
+  <img
+          th:src="@{/student/images/404-not-found.svg}"
+          alt="404 Img"
+          class="max-w-full h-auto sm:max-w-md md:max-w-lg lg:max-w-xl"
+  >
+
+  <!-- 404 Text -->
+  <div class="text-gray-700 text-lg sm:text-xl px-4">
+    <p class="mb-4 mt-3 text-2xl sm:text-3xl"><strong>Curiosity brought you here...</strong> but there's nothing to see.</p>
+    <p class="text-sm sm:text-base">You've reached a part of the web that doesn't exist!</p>
+    <p class="text-sm sm:text-base">Let's go back and keep exploring the real pages!</p>
+  </div>
+
+  <!-- Home Button using Thymeleaf -->
+  <form th:action="@{/}" method="get">
+    <button
+            type="submit"
+            class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition duration-300 cursor-pointer"
+    >
+      Get Back to Home
+    </button>
+  </form>
+
+</main>
+</body>
+
+</html>

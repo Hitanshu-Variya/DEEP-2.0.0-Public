@@ -1,0 +1,13 @@
+<div th:fragment="toast-display">
+  <!-- Stack Container-->
+  <div id="toast-container" class="fixed top-6 right-6 z-50 flex flex-col gap-4"></div>
+
+  <!-- Hidden Toast Template ( Used For Cloning )-->
+  <div id="toast-template"
+       class="hidden max-w-xs text-sm text-white rounded-xl shadow-lg"
+       role="alert" tabindex="-1">
+    <div class="flex p-4 gap-2 items-start rounded-xl">
+      <span class="toast-message"></span>
+    </div>
+  </div>
+</div>

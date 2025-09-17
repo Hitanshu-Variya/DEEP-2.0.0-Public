@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="context-path" th:content="@{/}" />
+  <title>DEEP - Allocation Result</title>
+  <link rel="icon" th:href="@{/admin/images/DEEP Logo.png}" type="image/png">
+  <link th:href="@{/css/output.css}" rel="stylesheet">
+</head>
+<body class="min-h-screen" style="background: linear-gradient(to bottom, #FFFFFF, #D4DFED);">
+
+<!-- Toast Display -->
+<div th:replace="~{common/toast-display::toast-display}"></div>
+
+<div class="mx-auto">
+  <!-- Header -->
+  <div th:replace="~{common/student-navbar::student-preference-related-navbar}"></div>
+</div>
+
+<main class="backdrop-blur-lg flex flex-col justify-center items-center px-7 py-6">
+  <div class="max-w-5xl w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <!-- Main Title -->
+    <div class="bg-white px-6 py-8">
+      <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Allocation Result</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="py-6 px-6 md:px-8">
+      <!-- Student Details Section -->
+      <div class="mb-8 border-b border-gray-200 pb-6">
+        <h2 class="font-bold text-lg md:text-xl text-gray-800 mb-2 md:mb-3">Student Details :</h2>
+        <div class="flex flex-col text-sm md:text-base">
+          <div class="flex">
+            <div class="flex justify-between">
+              <span class="w-46">Student Name</span>
+              <span class="mr-3">:</span>
+            </div>
+            <span th:text="${studentInfo.name}"></span>
+          </div>
+          <div class="flex">
+            <div class="flex justify-between">
+              <span class="w-46">Student ID</span>
+              <span class="mr-3">:</span>
+            </div>
+            <span th:text="${studentInfo.sid}"></span>
+          </div>
+          <div class="flex">
+            <div class="flex justify-between">
+              <span class="w-46">Semester</span>
+              <span class="mr-3">:</span>
+            </div>
+            <span th:text="${studentInfo.semester}"></span>
+          </div>
+          <div class="flex">
+            <div class="flex justify-between">
+              <span class="w-46">Program</span>
+              <span class="mr-3">:</span>
+            </div>
+            <span th:text="${studentInfo.program}"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allocated Courses Section -->
+      <div>
+        <h2 class="font-bold text-lg md:text-xl text-gray-800 mb-3 md:mb-4">Allocated Courses :</h2>
+
+        <!-- Desktop Table -->
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full border-collapse text-sm lg:text-base">
+            <thead>
+            <tr class="text-white">
+              <th class="px-4 py-3 rounded-tl-xl text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">Course Code</th>
+              <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">Course Name</th>
+              <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">Program</th>
+              <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">Category</th>
+              <th class="px-4 py-3 rounded-tr-xl text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">Credits</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${allocationResult}" class="border-b border-gray-200 hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium" th:text="${course.cid}"></td>
+              <td class="px-4 py-3" th:text="${course.cname}"></td>
+              <td class="px-4 py-3" th:text="${studentInfo.program}"></td>
+              <td class="px-4 py-3" th:text="${course.category}"></td>
+              <td class="px-4 py-3" th:text="${course.credits}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Cards -->
+        <div class="md:hidden space-y-4">
+          <div th:each="course : ${allocationResult}" class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+            <div class="flex justify-between items-start mb-2">
+              <span class="font-medium text-blue-600 text-lg" th:text="${course.cid}">CSXXX</span>
+              <span class="bg-gray-100 px-2 py-1 rounded text-sm" th:text="${course.credits + ' Credits'}">4.0 Credits</span>
+            </div>
+            <h3 class="font-medium mb-2" th:text="${course.cname}">Course Name</h3>
+            <div class="flex justify-between text-sm text-gray-600">
+              <span th:text="'Program: ' + ${studentInfo.program}">Program: ICT</span>
+              <span th:text="'Category: ' + ${course.category}">Category: ICTE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script th:src="@{/common/js/general-utility.js}"></script>
+<script th:src="@{/common/js/navbar.js}"></script>
+<script th:src="@{/student/js/my-allocation-result.js}"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+if(instanceCreationError) {
+    printStatusResponse(instanceCreationError);
+}
+
+if(updateInstanceError) {
+    printStatusResponse(updateInstanceError);
+}
+
+if (resultStatus === 'declared' && sessionStorage.getItem("showDeclareToast") === "true") {
+    showToast("Results are successfully declared!", statusColors.OK);
+    sessionStorage.removeItem("showDeclareToast");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleRegistration = document.getElementById("toggleRegistration");
+  const modal = document.getElementById("registrationModal");
+
+  toggleRegistration.addEventListener("change", function () {
+    if(registrationStatus === 'open') {
+        openRegModal();
+        return;
+    }
+
+    if (this.checked) {
+      modal.classList.remove("hidden");
+    }
+  });
+});
+
+function closeNewRegistrationModal() {
+    const modal = document.getElementById("registrationModal");
+    const toggleRegistration = document.getElementById("toggleRegistration");
+    toggleRegistration.checked = false;
+    modal.classList.add("hidden");
+}
+
+function openRegModal() {
+  document.getElementById('closeRegModal').classList.remove('hidden');
+}
+
+function closeRegModal() {
+  const toggleRegistration = document.getElementById("toggleRegistration");
+  toggleRegistration.checked = registrationStatus === 'open';
+  document.getElementById('closeRegModal').classList.add('hidden');
+}
+
+function handleOpenRegistration(event) {
+  event.preventDefault();
+
+  const dateInput = document.getElementById("registration-datepicker");
+  const rawValue = dateInput.value.trim();
+
+  if (!rawValue) {
+    showToast("Please select a close date.", 'warning');
+    return;
+  }
+
+  // Parse to Date object
+  const parsedDate = new Date(rawValue);
+  if (isNaN(parsedDate.getTime())) {
+    showToast("Invalid date selected.");
+    return;
+  }
+
+  // Format to YYYY-MM-DD
+  const year = parsedDate.getFullYear();
+  const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+  const day = String(parsedDate.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+
+  // Set the action with query param
+  const form = event.target;
+  const contextPath = document.querySelector('meta[name="context-path"]').getAttribute('content');
+  form.action = `${contextPath}admin/begin-collection?close-date=${encodeURIComponent(formattedDate)}`;
+  form.submit();
+}
+
+function openExtendModal() {
+    document.getElementById("extendModal").classList.remove("hidden");
+}
+
+function closeExtendModal() {
+    document.getElementById("extendModal").classList.add("hidden");
+}
+
+function handleExtend(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("extend-datepicker");
+    const rawValue = input.value.trim();
+
+    if (!rawValue) {
+      showToast("Please select a new close date.", 'warning');
+      return;
+    }
+
+    const parsedDate = new Date(rawValue);
+    if (isNaN(parsedDate.getTime())) {
+      showToast("Invalid date.");
+      return;
+    }
+
+    const year = parsedDate.getFullYear();
+    const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(parsedDate.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+
+    const form = event.target;
+    const contextPath = document.querySelector('meta[name="context-path"]').getAttribute('content');
+    form.action = `${contextPath}admin/extend-period?close-date=${encodeURIComponent(formattedDate)}`;
+    form.submit();
+}
+
+function openModal() {
+    sessionStorage.setItem("isModalOpen", "true");
+    document.getElementById('create-instance-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('create-instance-modal').classList.add('hidden');
+}
+
+const form = document.getElementById('createForm');
+const btnText = document.getElementById('submitBtnText');
+const spinner = document.getElementById('spinner');
+const submitBtn = document.getElementById('submitBtn');
+
+document.addEventListener('DOMContentLoaded', function () {
+    const isModalOpen = sessionStorage.getItem("isModalOpen");
+
+    if (isModalOpen === "false") {
+        closeModal();
+        // Remove it immediately so modal doesn't keep auto-closing
+        sessionStorage.removeItem("isModalOpen");
+    }
+});
+
+form.addEventListener('submit', function (e) {
+    if (!form.checkValidity()) return;
+
+    // Store flag to indicate modal was submitted
+    sessionStorage.setItem("isModalOpen", "false");
+
+    // Show loading state
+    btnText.textContent = "This may take a while!";
+    spinner.classList.remove("hidden");
+    submitBtn.disabled = true;
+});
+
+function openDeclareRegModal() {
+    document.getElementById('DeclareRegModal').classList.remove('hidden');
+};
+
+function closeDeclareRegModal() {
+    document.getElementById('DeclareRegModal').classList.add('hidden');
+};
+
+function handleDeclareResult() {
+    const pendingSemesters = [];
+
+    dashboardRequirement.forEach(item => {
+        const semester = item.semester;
+        const totalStudents = item.totalStudents;
+        const allocationStatus = item.allocationStatus;
+
+        if (totalStudents !== 0 && !allocationStatus) {
+            pendingSemesters.push(semester);
+        }
+    });
+
+    if (pendingSemesters.length > 0) {
+        const semList = pendingSemesters.join(', ');
+        showToast(`Allocation pending for Semester(s): ${semList}`, statusColors.ERROR);
+        return;
+    }
+
+    // Submit the hidden form to trigger POST request
+    sessionStorage.setItem("showDeclareToast", "true");
+    document.getElementById("declareResultForm").submit();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.semester-btn');
+    const prefCountEl = document.getElementById('prefCount');
+    const allocStatusEl = document.getElementById('allocStatus');
+
+    function updateCard(semester) {
+        const data = dashboardRequirement.find(item => item.semester === semester);
+
+        if (!data || data.totalStudents === 0) {
+            prefCountEl.textContent = '-- / --';
+            allocStatusEl.textContent = '--';
+        } else {
+            prefCountEl.textContent = `${data.submittedPrefCnt} / ${data.totalStudents}`;
+            allocStatusEl.textContent = data.allocationStatus ? 'Done' : 'Pending';
+        }
+
+        // Highlight active button
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-[#46A24A]', 'bg-[#22437E]');
+            btn.classList.add('bg-[#22437E]'); // Reset all to blue
+        });
+
+        const activeBtn = [...buttons].find(btn => parseInt(btn.getAttribute('data-semester'), 10) === semester);
+        if (activeBtn) {
+            activeBtn.classList.remove('bg-[#22437E]');
+            activeBtn.classList.add('bg-[#46A24A]'); // Highlight selected one
+        }
+    }
+
+    // Set up listeners
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const selectedSem = parseInt(button.getAttribute('data-semester'), 10);
+            updateCard(selectedSem);
+        });
+    });
+
+    // Default load: select 5th semester
+    updateCard(5);
+});

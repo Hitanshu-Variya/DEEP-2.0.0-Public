@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="context-path" th:content="@{/}" />
+  <title>DEEP - Home Page</title>
+  <link rel="icon" th:href="@{/admin/images/DEEP Logo.png}" type="image/png">
+  <link th:href="@{/css/output.css}" rel="stylesheet">
+</head>
+<body class="min-h-screen" style="background: linear-gradient(to bottom, #FFFFFF, #D4DFED);">
+
+<!-- Toast Display -->
+<div th:replace="~{common/toast-display::toast-display}"></div>
+
+<div class="mx-auto">
+  <!-- Header -->
+  <div th:replace="~{common/student-navbar::student-navbar}"></div>
+</div>
+
+<main class="backdrop-blur-lg flex flex-col justify-center items-center">
+  <!-- Header Section -->
+  <section class="bg-[linear-gradient(123deg,_rgba(0,0,92,1)_0%,_rgba(49,99,214,1)_50%,_rgba(0,0,92,1)_100%)] text-white py-15 md:py-20 px-10 w-full">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-3 md:mb-6">Welcome to DEEP</h1>
+      <p class="text-xs md:text-base mb-8 opacity-90 max-w-xl mx-auto">
+        DAU Elective Enrollment Portal - Submit your elective course preferences easily and
+        track your allocation status.
+      </p>
+      <button onclick="HandleStudentRoute('preference-form')" th:disabled="${registrationStatus != 'open'}" th:classappend="${registrationStatus != 'open'} ? ' opacity-50 cursor-not-allowed' : ' opacity-100 cursor-pointer'" class="bg-gradient-to-r from-[#EA580C] to-[#FB923C] text-white font-semibold py-3 px-5 sm:px-8 rounded-full">
+        <div class="flex items-center justify-center">
+          <span class="text-sm sm:text-base">Submit your Preferences</span>
+          <img th:src="@{/student/images/right-arrow.svg}" alt="Arrow Right" class="inline-block ml-3 w-5 h-5">
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-16 px-10 w-full">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 md:mb-4">How It Works</h2>
+        <p class="text-gray-600 text-sm md:text-base">Simple steps to complete your Electives enrollment</p>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-4 lg:space-y-0 lg:space-x-8">
+        <!-- Step 1 -->
+        <div class="flex-1 text-center rounded-3xl p-6 py-12 bg-white shadow-lg">
+          <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <img th:src="@{/student/images/book.svg}" alt="book Icon" class="w-8 h-8 text-blue-600">
+          </div>
+          <h3 class="text-xl md:text-base lg:text-xl font-bold text-gray-800 mb-2">Choose Preferences</h3>
+          <p class="text-gray-600 text-xs lg:text-sm">Select your preferred courses</p>
+        </div>
+
+        <!-- Arrow 1 -->
+        <img th:src="@{/student/images/steps-right.svg}" alt="Arrow Right" class="rotate-[90deg] md:rotate-0 md:block w-15 h-15 text-blue-400">
+
+        <!-- Step 2 -->
+        <div class="flex-1 text-center rounded-3xl p-6 py-12 bg-white shadow-lg">
+          <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <img th:src="@{/student/images/clock.svg}" alt="clock Icon" class="w-8 h-8 text-blue-600">
+          </div>
+          <h3 class="text-xl md:text-base lg:text-xl font-bold text-gray-800 mb-2">Submit Before Due Date</h3>
+          <p class="text-gray-600 text-xs lg:text-sm">Complete your submission within the time limit</p>
+        </div>
+
+        <!-- Arrow 2 -->
+        <img th:src="@{/student/images/steps-right.svg}" alt="Arrow Right" class="rotate-[90deg] md:rotate-0 md:block w-15 h-15 text-blue-400">
+
+        <!-- Step 3 -->
+        <div class="flex-1 text-center rounded-3xl p-6 py-12 bg-white shadow-lg">
+          <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <img th:src="@{/student/images/certificate.svg}" alt="certificate Icon" class="w-8 h-8 text-blue-600">
+          </div>
+          <h3 class="text-xl md:text-base lg:text-xl font-bold text-gray-800 mb-2">View Results</h3>
+          <p class="text-gray-600 text-xs lg:text-sm">Check your allocation status and results</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Important Dates Section -->
+  <section class="bg-gradient-to-r from-[#bad4f6] to-[#DBEAFE] py-16 px-10 w-full">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 md:mb-4">Important Dates & Notices</h2>
+        <p class="text-gray-600 text-sm md:text-base">Stay updated with key deadlines</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 gap-x-25">
+        <!-- Registration Deadline -->
+        <div class="bg-white rounded-lg py-13 px-8"
+             style="box-shadow: -4px 5px 9px 1px rgba(246,13,13,1);
+                          -webkit-box-shadow: -4px 5px 9px 1px rgba(246,13,13,1);
+                          -moz-box-shadow: -4px 5px 9px 1px rgba(246,13,13,1);">
+          <div class="flex flex-col items-start justify-center space-x-4">
+            <div class="flex justify-center items-center space-x-4 mb-4">
+              <div class="bg-red-100 p-2 rounded-lg">
+                <img th:src="@{/student/images/Calendar.svg}" alt="certificate Icon" class="w-8 h-8 text-blue-600">
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Final Submission Due</h3>
+            </div>
+            <div>
+              <p class="text-3xl md:text-3xl font-bold mb-1"
+                 th:text="${registrationStatus != 'open'} ? (${registrationCloseDate == null} ? 'Yet to Open' : 'Preference Phase Ended') : ${registrationCloseDate}">
+                Yet to Open
+              </p>
+              <p class="text-gray-600 text-sm">Last date to submit preferences</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Release -->
+        <div class="bg-white rounded-lg py-13 px-8"
+             style="box-shadow: -4px 5px 9px 1px rgba(27,13,246,1);
+                            -webkit-box-shadow: -4px 5px 9px 1px rgba(27,13,246,1);
+                            -moz-box-shadow: -4px 5px 9px 1px rgba(27,13,246,1);">
+          <div class="flex flex-col items-start justify-center space-x-4">
+            <div class="flex justify-center items-center space-x-4 mb-4">
+              <div class="bg-blue-100 p-2 rounded-lg">
+                <img th:src="@{/student/images/Bell.svg}" alt="Bell Icon" class="w-8 h-8 text-blue-600">
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Result Release</h3>
+            </div>
+            <div>
+              <p class="text-3xl md:text-3xl font-bold mb-1"
+                 th:text="${resultStatus == 'pending'} ? 'To be Declared' : 'Results are Out!'">
+                To be announced</p>
+              <p class="text-gray-600 text-sm">Allocation Results will be published</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Access Section -->
+  <section class="py-16 px-10 w-full">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 md:mb-4">Quick Access</h2>
+        <p class="text-gray-600 text-sm md:text-base">Access all your essential tools from here</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-items-center gap-4 gap-x-10">
+        <!-- Enroll Now -->
+        <button onclick="HandleStudentRoute('preference-form')"
+                th:disabled="${registrationStatus != 'open'}"
+                th:classappend="${registrationStatus != 'open'} ? ' opacity-50 cursor-not-allowed' : ' opacity-100 cursor-pointer'"
+                class="bg-[#FF822E] rounded-3xl p-6 w-full text-center text-white transition">
+
+          <div class="flex flex-col items-center justify-center mb-4">
+            <img th:src="@{/student/images/white-book.svg}" alt="book Icon" class="w-12 h-12 text-blue-600">
+          </div>
+
+          <h3 class="font-bold text-black text-lg mb-1">Begin Selection</h3>
+          <p class="text-xs text-black opacity-90">Submit your Preferences</p>
+        </button>
+
+        <!-- View Preferences -->
+        <button onclick="HandleStudentRoute('my-preferences')" class="bg-[#568CEA] rounded-3xl p-6 w-full text-center text-white cursor-pointer">
+          <div class="flex flex-col items-center justify-center mb-4">
+            <img th:src="@{/student/images/white-tick.svg}" alt="tick Icon" class="w-12 h-12 text-blue-600">
+          </div>
+          <h3 class="font-bold text-black text-lg mb-1">View Preferences</h3>
+          <p class="text-xs text-black opacity-90">Check saved preferences</p>
+        </button>
+
+        <!-- View Results -->
+        <button onclick="HandleStudentRoute('my-allocation-result')" class="bg-[#0EB17C] rounded-3xl p-6 w-full text-center text-white cursor-pointer">
+          <div class="flex flex-col items-center justify-center mb-4">
+            <img th:src="@{/student/images/white-certificate.svg}" alt="certificate Icon" class="w-12 h-12 text-blue-600">
+          </div>
+          <h3 class="font-bold text-black text-lg mb-1">View Results</h3>
+          <p class="text-xs text-black opacity-90">Check allocation status</p>
+        </button>
+
+        <!-- Guidelines -->
+        <button onclick="HandleStudentRoute('guidelines')" class="bg-[#BF4EF7] rounded-3xl p-6 w-full text-center text-white cursor-pointer">
+          <div class="flex flex-col items-center justify-center mb-4">
+            <img th:src="@{/student/images/guidelines.svg}" alt="guidelines Icon" class="w-12 h-12 text-blue-600">
+          </div>
+          <h3 class="font-bold text-black text-lg mb-1">Guidelines</h3>
+          <p class="text-xs text-black opacity-90">Read important instructions</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact-section" class="bg-gray-800 text-white py-8 px-10 w-full">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid sm:grid-cols-2 gap-3 sm:gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">DEEP</h3>
+          <p class="text-gray-400 text-xs md:text-base mb-4">
+            DAU Elective Enrollment Portal - Making course selection simple and efficient for students.
+          </p>
+        </div>
+
+        <div class="sm:text-right">
+          <h4 class="text-lg font-semibold mb-2">Contact</h4>
+          <div class="md:space-y-2 text-gray-400">
+            <p class="flex items-center justify-start sm:justify-end space-x-2">
+              <img th:src="@{/student/images/mail.svg}" alt="guidelines Icon" class="w-4 md:w-5 h-4 md:h-5 mt-1 text-blue-600">
+              <span class="text-xs md:text-base">electives@dau.ac.in</span>
+            </p>
+            <p class="flex items-center justify-start sm:justify-end space-x-2">
+              <img th:src="@{/student/images/location_on.svg}" alt="guidelines Icon" class="w-4 md:w-5 h-4 md:h-5 mt-1 text-blue-600">
+              <span class="text-xs md:text-base">DAU Campus, Gandhinagar</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+    let renderResponse = /*[[${renderResponse}]]*/ null;
+    let preferenceSubmissionResponse = /*[[${preferenceSubmissionResponse}]]*/ null;
+    let jsonParsingError = /*[[${jsonParsingError}]]*/ null;
+  /*]]>*/
+</script>
+
+<script th:src="@{/common/js/general-utility.js}"></script>
+<script th:src="@{/common/js/navbar.js}"></script>
+<script th:src="@{/common/js/status-response.js}"></script>
+<script th:src="@{/student/js/home-page.js}"></script>
+</body>
+</html>
