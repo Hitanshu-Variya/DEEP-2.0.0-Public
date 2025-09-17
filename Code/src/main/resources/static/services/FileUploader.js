@@ -1,5 +1,6 @@
 class FileUploader {
-  constructor({ inputId, labelId, btnId, uploadUrl, maxLength = 30 }) {
+  constructor({ type, inputId, labelId, btnId, uploadUrl, maxLength = 30 }) {
+    this.type = type
     this.fileInput = document.getElementById(inputId);
     this.fileLabel = document.getElementById(labelId);
     this.uploadBtn = document.getElementById(btnId);
@@ -36,8 +37,8 @@ class FileUploader {
   initUploadButton() {
     this.uploadBtn.addEventListener("click", () => {
       if (!this.fileInput.files.length) {
-      console.log("No input file")
-//        this.addLog({ status: 400, message: "No file selected." });
+        const container = document.getElementById("statusLogContainer");
+        this.addLogToStack(container, statusColors[status.NO_CONTENT], `${this.type}: No Files Selected! Please select a file first.`);
         return;
       }
 

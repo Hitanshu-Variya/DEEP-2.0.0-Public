@@ -11,6 +11,7 @@ tables.forEach(table => {
 
 // Init for all sections
 new FileUploader({
+  type: "Student Data",
   inputId: "studentFile",
   labelId: "studentFileLabel",
   btnId: "studentUploadBtn",
@@ -18,6 +19,7 @@ new FileUploader({
 });
 
 new FileUploader({
+  type: "Institute Requirements",
   inputId: "instFile",
   labelId: "instFileLabel",
   btnId: "instUploadBtn",
@@ -25,6 +27,7 @@ new FileUploader({
 });
 
 new FileUploader({
+  type: "Course Data",
   inputId: "courseFile",
   labelId: "courseFileLabel",
   btnId: "courseUploadBtn",
@@ -32,6 +35,7 @@ new FileUploader({
 });
 
 new FileUploader({
+  type: "Seat Matrix",
   inputId: "seatFile",
   labelId: "seatFileLabel",
   btnId: "seatUploadBtn",

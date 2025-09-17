@@ -99,10 +99,10 @@ public class AllocationInstanceController {
     @PostMapping(AdminEndpoint.UPLOAD_DATA)
     public String saveUploadedFiles(@PathVariable("category") String category, @RequestParam("upload-data") MultipartFile file, Model model){
         if(file.isEmpty()){
-            model.addAttribute("noFileDetected",new ResponseDto(ResponseStatus.BAD_REQUEST,ResponseMessage.INCOMPATIBLE_FILE_TYPE));
+            model.addAttribute("noFileDetected",new ResponseDto(ResponseStatus.BAD_REQUEST,ResponseMessage.NO_FILE_DETECTED));
             return CommonTemplate.UPLOAD_STATUS_FRAGMENT; // fragments :: uploadStatus instead of model or any other way that helps avoid reloading the whole page.
         }
-        if(!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".xlsx")){
+        if(!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".csv")){
             model.addAttribute("unexpectedFileType",new ResponseDto(ResponseStatus.BAD_REQUEST,ResponseMessage.INCOMPATIBLE_FILE_TYPE));
             return CommonTemplate.UPLOAD_STATUS_FRAGMENT; // fragments :: uploadStatus instead of model or any other way that helps avoid reloading the whole page.
         }
