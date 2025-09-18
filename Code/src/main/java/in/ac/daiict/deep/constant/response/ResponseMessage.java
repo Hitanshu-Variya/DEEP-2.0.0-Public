@@ -15,9 +15,9 @@ public class ResponseMessage {
     public static final String ALLOCATION_INSTANCE_NOT_FOUND="No instance found to update. Please create an instance to continue.";
     public static final String USER_NOT_REGISTERED = "Your preference submission status is incomplete. Please submit your preferences in order to proceed.";
     public static final String STUDENT_NOT_REGISTERED = "The student's data appears to be missing or the student has not completed the preference submission process.";
-    public static final String INCOMPATIBLE_FILE_TYPE="The file-type is incompatible. Ensure that the file-type is .csv.";
+    public static final String INCOMPATIBLE_FILE_TYPE="The file-type is incompatible. Ensure that the file-type is .xlsx.";
     public static final String UPLOAD_FAILURE="Upload failed due to a server error. Please try again later.";
-    public static final String UPLOAD_SUCCESS="Data uploaded Successfully!";
+    public static final String UPLOAD_SUCCESS="Data Uploaded Successfully!";
     public static final String UNEXPECTED_CATEGORY="The uploaded file is not recognized. Please use the correct file upload interface.";
     public static final String NO_FILE_DETECTED = "No file was detected in the request. Please select a file and try again.";
     public static final String UPLOAD_OFFERS = "Course Data has been updated. Please re-upload Course Offering file to avoid data loss.";

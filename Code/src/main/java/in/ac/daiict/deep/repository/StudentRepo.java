@@ -1,6 +1,7 @@
 package in.ac.daiict.deep.repository;
 
 import in.ac.daiict.deep.constant.database.DBConstants;
+import in.ac.daiict.deep.dto.UploadStatusDto;
 import in.ac.daiict.deep.entity.Student;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +25,8 @@ public interface StudentRepo extends JpaRepository<Student,String>{
 
     long countBySemester(int semester);
     long countByHasEnrolled(boolean hasEnrolled);
-    Optional<Student> findById(String sid);
     List<Student> findByProgramAndSemester(String program, int semester);
+
+    @Query("SELECT new in.ac.daiict.deep.dto.UploadStatusDto(s.program,s.semester,COUNT(s)) FROM Student s GROUP BY s.program, s.semester")
+    List<UploadStatusDto> findAllCountByProgramAndSem();
 }
