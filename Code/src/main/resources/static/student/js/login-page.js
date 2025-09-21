@@ -2,7 +2,6 @@ import ToastManager from '/services/ToastManager.js';
 const toastManager = new ToastManager();
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Check for login error in URL
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('error')) {
         toastManager.printStatusResponse({ status: status.ERROR,  message: "Invalid username or password." })

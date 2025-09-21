@@ -46,8 +46,8 @@
                         </div>
                     </div>
                     <form th:action="@{/admin/download-reports}" method="get">
-                        <input type="hidden" name="name" value="course-data">
-                        <button type="submit" class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] max-w-44 sm:max-w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
+                        <input type="hidden" name="name" value="course-allotments">
+                        <button type="submit" data-file-name="course-allotments" class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] max-w-44 sm:max-w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
                             Download ZIP
                         </button>
@@ -77,10 +77,10 @@
                     </div>
                     <form th:action="@{/admin/download-reports}" method="get">
                         <input type="hidden" name="name" value="course-data">
-                        <button type="submit"
+                        <button type="submit" data-file-name="course-data"
                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] max-w-44 sm:max-w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                            Download Excel
+                            Download CSV
                         </button>
                     </form>
                 </div>
@@ -88,18 +88,18 @@
                 <!-- Institute Requirements -->
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div class="flex items-center mb-2 sm:mb-0">
-                        <img th:src="@{/admin/images/course-data.svg}" alt="Course Icon" class="w-5 h-5 mb-4 mr-3">
+                        <img th:src="@{/admin/images/instititute-requirements.svg}" alt="institute Requirements Icon" class="w-5 h-5 mb-4 mr-3">
                         <div>
                             <h3 class="font-bold text-[1.1rem] text-[#1E3C72]">Institute Requirements</h3>
                             <p class="text-xs text-gray-500">Download Institute Requirements in Excel Format</p>
                         </div>
                     </div>
                     <form th:action="@{/admin/download-reports}" method="get">
-                        <input type="hidden" name="name" value="course-data">
-                        <button type="submit"
+                        <input type="hidden" name="name" value="institute-requirements">
+                        <button type="submit" data-file-name="institute-requirements"
                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] max-w-44 sm:max-w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                            Download Excel
+                            Download CSV
                         </button>
                     </form>
                 </div>
@@ -107,18 +107,18 @@
                 <!-- Seat Matrix -->
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div class="flex items-center mb-2 sm:mb-0">
-                        <img th:src="@{/admin/images/course-data.svg}" alt="Course Icon" class="w-5 h-5 mb-4 mr-3">
+                        <img th:src="@{/admin/images/course-offerings-details.svg}" alt="Course Icon" class="w-5 h-5 mb-4 mr-3">
                         <div>
                             <h3 class="font-bold text-[1.1rem] text-[#1E3C72]">Seat Matrix Details</h3>
                             <p class="text-xs text-gray-500">Download Seat Matrix Details in Excel Format</p>
                         </div>
                     </div>
                     <form th:action="@{/admin/download-reports}" method="get">
-                        <input type="hidden" name="name" value="course-data">
-                        <button type="submit"
+                        <input type="hidden" name="name" value="seat-matrix">
+                        <button type="submit" data-file-name="seat-matrix"
                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] max-w-44 sm:max-w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                            Download Excel
+                            Download CSV
                         </button>
                     </form>
                 </div>
@@ -172,7 +172,7 @@
                                         <button type="button"
                                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                                            Download Excel
+                                            Download ZIP
                                         </button>
                                     </div>
                                 </td>
@@ -199,7 +199,7 @@
                                         <button type="button"
                                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                                            Download Excel
+                                            Download ZIP
                                         </button>
                                     </div>
                                 </td>
@@ -226,7 +226,7 @@
                                         <button type="button"
                                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                                            Download Excel
+                                            Download ZIP
                                         </button>
                                     </div>
                                 </td>
@@ -253,7 +253,7 @@
                                         <button type="button"
                                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                                            Download Excel
+                                            Download ZIP
                                         </button>
                                     </div>
                                 </td>
@@ -280,7 +280,7 @@
                                         <button type="button"
                                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                                            Download Excel
+                                            Download ZIP
                                         </button>
                                     </div>
                                 </td>
@@ -307,7 +307,7 @@
                                         <button type="button"
                                                 class="input-download-btn bg-gradient-to-r from-[#27AE60] to-[#2ECC71] w-auto text-white px-3 py-2 rounded-lg font-medium flex justify-center items-center cursor-pointer">
                                             <img th:src="@{/admin/images/excel-file.svg}" alt="Excel Icon" class="w-5 h-5 mr-2">
-                                            Download Excel
+                                            Download ZIP
                                         </button>
                                     </div>
                                 </td>
