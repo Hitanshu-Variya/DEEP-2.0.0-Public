@@ -1,3 +1,6 @@
+import ToastManager from '/services/ToastManager.js';
+const toastManager = new ToastManager();
+
 let selectedSemester = null;
 function HandleSemesterSelection(semesterBtns, downloadBtns, semesterInputs) {
     semesterBtns.forEach(btn => {
@@ -47,7 +50,7 @@ function HandleDownloadButtonClick(downloadBtns, checkforSemester = true) {
             e.preventDefault();
 
             if (checkforSemester && !selectedSemester) {
-                showToast('Please select a semester first!', statusColors.ERROR);
+                toastManager.printStatusResponse({ status: status.ERROR,  message: "Please select a semester first!" });
                 return;
             }
 
@@ -96,8 +99,7 @@ function HandleDownloadButtonClick(downloadBtns, checkforSemester = true) {
                     window.URL.revokeObjectURL(url);
                 }
             } catch (err) {
-                console.error("Fetch error:", err);
-                showToast("Something went wrong due to Network Error. Please contact support.", statusColors.ERROR);
+                toastManager.printStatusResponse({ status: status.ERROR,  message: "Something went wrong due to Network Error. Please contact support."});
             } finally {
                 // Always restore button after fetch resolves or fails
                 this.innerHTML = originalText;
@@ -121,3 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     InitializeDownloadButtons(resultDownloadBtns);
     HandleDownloadButtonClick(resultDownloadBtns);
 });
+
+window.HandleSemesterSelection = HandleSemesterSelection;
+window.InitializeDownloadButtons = InitializeDownloadButtons;
+window.HandleDownloadButtonClick = HandleDownloadButtonClick;
