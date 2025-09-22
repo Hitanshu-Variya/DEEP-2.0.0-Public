@@ -24,6 +24,38 @@ closeSeatUpload.addEventListener("click", () => {
   seatMatrixContainer.classList.remove("hidden");
 });
 
+document.getElementById('executeBtn').addEventListener('click', function(event) {
+    event.preventDefault(); // prevent default submit
+
+    const selectedRows = document.querySelectorAll('#runAllocationSelectionContainer tbody tr');
+    const executeFilter = {}; // program -> [semesters]
+
+    selectedRows.forEach(row => {
+        const checkbox = row.querySelector('input.row-selector');
+        if (checkbox && checkbox.checked) {
+            const program = row.dataset.program;
+            const semester = parseInt(row.dataset.semester, 10);
+
+            if (!executeFilter[program]) {
+                executeFilter[program] = [];
+            }
+            executeFilter[program].push(semester);
+        }
+    });
+
+    if (Object.keys(executeFilter).length === 0) {
+        alert('Please select at least one entry');
+        return;
+    }
+
+    // Assign JSON to hidden input
+    document.getElementById('executionFilter').value = JSON.stringify(executeFilter);
+    console.log(JSON.stringify(executeFilter));
+
+    // Submit the form
+     document.getElementById('executeAllocationForm').submit();
+});
+
 //const allocationStatusMap = {};
 //allocationStatusList?.forEach(entry => {
 //    allocationStatusMap[entry.semester] = {
