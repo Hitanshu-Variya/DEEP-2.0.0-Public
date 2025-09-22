@@ -14,7 +14,8 @@ export default class DashboardSummaryTable {
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-    fetch(`${contextPath}admin/admin-dashboard/refresh-details`, {
+    // 🔑 Return promise so caller can chain
+    return fetch(`${contextPath}admin/admin-dashboard/refresh-details`, {
       method: "POST",
       headers: { [csrfHeader]: csrfToken }
     })
@@ -34,11 +35,14 @@ export default class DashboardSummaryTable {
     const parser = new DOMParser();
     const doc = parser.parseFromString(fragmentHtml, "text/html");
     const details = doc.querySelectorAll(`#${this.fragmentContainerId} > div`);
-    this.detailsData = details;
+    this.detailsData = Array.from(details);
 
     this.tableBody.innerHTML = "";
 
-    details.forEach((detail, idx) => {
+    this.detailsData.forEach((detail, idx) => {
+      // 🔑 keep row index for re-binding
+      detail.dataset.rowIndex = idx;
+
       const program = detail.dataset.program;
       const semester = detail.dataset.semester;
       const totalStudents = detail.dataset.totalstudents;

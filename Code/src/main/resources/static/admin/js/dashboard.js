@@ -3,11 +3,11 @@ import DashboardSummaryTable from '/services/DashboardSummaryTable.js';
 import RegistrationPanel from '/services/RegistrationPanel.js';
 
 const toastManager = new ToastManager();
-const registrationPanel = new RegistrationPanel({
+window.registrationPanel = new RegistrationPanel({
     panelId: 'detailsPanel',
     toastManager: toastManager
 });
-const dashboardTable = new DashboardSummaryTable({
+window.dashboardTable = new DashboardSummaryTable({
   detailsPanel: registrationPanel,
   fragmentContainerId: 'phaseSummaryFragment'
 });

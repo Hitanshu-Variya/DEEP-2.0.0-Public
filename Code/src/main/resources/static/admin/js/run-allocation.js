@@ -1,5 +1,13 @@
 import ToastManager from '/services/ToastManager.js';
+//import RunAllocationManager from '/services/RunAllocationManager.js';
+import RunAllocationSummary from '/services/RunAllocationSummary.js';
+//import RunAllocationExecutor from '/services/RunAllocationExecutor.js';
+
+const contextPath = document.querySelector('meta[name="context-path"]').getAttribute('content');
 const toastManager = new ToastManager();
+const allocationSummary = new RunAllocationSummary({ contextPath, toastManager });
+//const executor = new RunAllocationExecutor({ contextPath, toastManager });
+//const runManager = new RunAllocationManager({ contextPath, toastManager });
 
 const updateSeatBtn = document.getElementById("updateSeatBtn");
 const seatMatrixContainer = document.getElementById("seatMatrixContainer");

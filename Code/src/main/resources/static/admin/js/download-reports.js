@@ -6,10 +6,8 @@ const contextPath = document.querySelector('meta[name="context-path"]').getAttri
 
 const downloader = new FileDownloader({ contextPath, toastManager });
 
-// Select all buttons you want to attach download behavior
+// Existing download buttons
 const downloadBtns = document.querySelectorAll('.input-download-btn');
-
-// Attach the download logic
 downloader.attach(downloadBtns, (btn) => {
   const fileName = btn.dataset.fileName;
   if (!fileName) {

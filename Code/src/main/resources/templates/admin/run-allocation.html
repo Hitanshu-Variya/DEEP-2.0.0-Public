@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="context-path" th:content="@{/}" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <title>DEEP - Run Allocation</title>
     <link rel="icon" th:href="@{/admin/images/DEEP Logo.png}" type="image/png">
     <link href="/css/output.css" rel="stylesheet">
@@ -41,66 +43,32 @@
 
             <div class="flex flex-col gap-6">
                 <div class="flex-100 transition-width w-full bg-blue-100 rounded-2xl shadow-lg overflow-hidden">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" id="runAllocationSelectionContainer">
                         <table class="w-full text-xs lg:text-sm">
                             <thead>
                             <tr class="bg-slate-700 text-white">
                                 <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Program</th>
+                                    Program
+                                </th>
                                 <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Semester</th>
+                                    Semester
+                                </th>
                                 <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Action</th>
+                                    Action
+                                </th>
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 font-medium text-[#16355f]">
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
+                            <tr th:each="item, iter : ${allRequiredStatus}"
+                                th:data-program="${item.program}"
+                                th:data-semester="${item.semester}"
+                                class="hover:bg-blue-200 cursor-pointer">
+
+                                <td class="px-4 py-3" th:text="${item.program}">Program</td>
+                                <td class="px-4 py-3" th:text="${item.semester}">Semester</td>
+
                                 <td class="px-4 py-3 flex justify-center mt-1">
-                                    <input type="checkbox" class="cursor-pointer scale-125" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3 flex justify-center mt-1">
-                                    <input type="checkbox" class="cursor-pointer scale-125" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3 flex justify-center mt-1">
-                                    <input type="checkbox" class="cursor-pointer scale-125" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3 flex justify-center mt-1">
-                                    <input type="checkbox" class="cursor-pointer scale-125" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3 flex justify-center mt-1">
-                                    <input type="checkbox" class="cursor-pointer scale-125" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3 flex justify-center mt-1">
-                                    <input type="checkbox" class="cursor-pointer scale-125" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3 flex justify-center mt-1">
-                                    <input type="checkbox" class="cursor-pointer scale-125" />
+                                    <input type="checkbox" class="row-selector cursor-pointer scale-125" />
                                 </td>
                             </tr>
                             </tbody>
@@ -214,75 +182,7 @@
 
             <div class="flex flex-col justify-between gap-6">
                 <div class="flex-100 transition-width w-full bg-blue-100 rounded-2xl shadow-lg overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-xs lg:text-sm">
-                            <thead>
-                            <tr class="bg-slate-700 text-white">
-                                <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Program</th>
-                                <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Semester</th>
-                                <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Allocation Status</th>
-                                <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Students Successfully allocated</th>
-                                <th class="px-4 py-3 text-left font-medium bg-gradient-to-r from-[#1E3C72] to-[#2A5298]">
-                                    Students Unsuccessfully allocated</th>
-                            </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 font-medium text-[#16355f]">
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="allocated">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3">Allocated</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="pending">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3">Pending</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="pending">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3">Pending</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="pending">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3">Pending</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="pending">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3">Pending</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="pending">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3">Pending</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                            </tr>
-                            <tr class="hover:bg-blue-200 cursor-pointer" data-status="pending">
-                                <td class="px-4 py-3">B-Tech ICT</td>
-                                <td class="px-4 py-3">5</td>
-                                <td class="px-4 py-3">Pending</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                                <td class="px-4 py-3">180 / 180</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div id="runAllocationTableContainer"></div>
                 </div>
 
                 <!-- Download Reports Button -->
