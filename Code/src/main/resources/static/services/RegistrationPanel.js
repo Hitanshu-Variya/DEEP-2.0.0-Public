@@ -13,35 +13,36 @@ export default class RegistrationPanel {
     });
   }
 
+  hideDetails() {
+     this.panel.classList.add('hidden');
+  }
+
   showDetails(dataDiv) {
-    if (!dataDiv) return;
-    this.dataDiv = dataDiv;
+      if (!dataDiv) return;
+      this.dataDiv = dataDiv;
 
-    // Normalize status
-    const state = (dataDiv.dataset.collectionwindowstate || '').toLowerCase();
-    const isOpen = state === 'open';
-    const hasOpened = state !== 'yet to open';
-    const endDate = dataDiv.dataset.enddate || null;
-    const resultState = dataDiv.dataset.resultstate;
-    console.log(isOpen);
+      // Normalize status
+      const state = (dataDiv.dataset.collectionwindowstate || '').toLowerCase();
+      const isOpen = state === 'open';
+      const hasOpened = state !== 'yet to open';
+      const endDate = dataDiv.dataset.enddate || null;
+      const resultState = dataDiv.dataset.resultstate;
 
-    this.panel.classList.remove('hidden');
+      console.log(resultState);
 
-    this.contentDiv.innerHTML = `
-      <label class="inline-flex items-center mb-6"
-           th:classappend="${resultState == 'Declared'} ? ' opacity-50 cursor-not-allowed' : ' opacity-100 cursor-pointer'">
-      <input type="checkbox"
-             id="toggleRegistration"
-             class="sr-only peer"
-             th:checked="${state == 'open'}"
-             th:disabled="${state != 'open'}">
-      <div class="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-    </label>
+      this.panel.classList.remove('hidden');
 
-      <h3 class="text-xl font-bold text-[#1E3C72] mb-1">Begin/End Preference Collection</h3>
-      <p class="text-xs text-gray-600 mb-4 text-center">Manually toggle Preference Collection window</p>
+      // Render content
+      this.contentDiv.innerHTML = `
+        <label class="inline-flex items-center mb-6">
+          <input type="checkbox" id="toggleRegistration" class="sr-only peer">
+          <div class="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+        </label>
 
-      <div class="flex flex-col space-y-2 justify-center items-center text-sm font-semibold text-[#1E3C72]">
+        <h3 class="text-xl font-bold text-[#1E3C72] mb-1">Begin/End Preference Collection</h3>
+        <p class="text-xs text-gray-600 mb-4 text-center">Manually toggle Preference Collection window</p>
+
+        <div class="flex flex-col space-y-2 justify-center items-center text-sm font-semibold text-[#1E3C72]">
           ${endDate
             ? (isOpen
                 ? `<div>Preference Collection Ends on: ${endDate}</div>`
@@ -56,10 +57,22 @@ export default class RegistrationPanel {
             ` : ''}
           </div>
         </div>
-    `;
+      `;
 
-    const toggle = this.contentDiv.querySelector('#toggleRegistration');
-    toggle.checked = isOpen;
+      // Get the toggle element
+      const toggle = this.contentDiv.querySelector('#toggleRegistration');
+      toggle.checked = isOpen;
+      const label = toggle.closest('label');
+
+      if (resultState === 'Declared') {
+        toggle.disabled = true;
+        label.classList.add('opacity-50', 'cursor-not-allowed');
+        label.classList.remove('cursor-pointer');
+      } else {
+        toggle.disabled = false;
+        label.classList.remove('opacity-50', 'cursor-not-allowed');
+        label.classList.add('cursor-pointer');
+      }
   }
 
   handleToggle(toggle) {
