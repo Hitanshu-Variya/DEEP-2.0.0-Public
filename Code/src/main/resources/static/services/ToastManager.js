@@ -32,11 +32,7 @@ export default class ToastManager {
 
   enqueueToast(message, statusColor) {
     const toastData = { message, statusColor };
-    if (this.activeToasts.length < this.maxVisible) {
-      this.showToastAtBottom(toastData.message, toastData.statusColor);
-    } else {
-      this.toastQueue.push(toastData);
-    }
+    this.addAndRefreshToasts(toastData.message, toastData.statusColor);
   }
 
   // New toasts are added behind (at the bottom)
@@ -44,7 +40,7 @@ export default class ToastManager {
     const toast = this.createToastElement(message, statusColor);
     // Prepend to container so older toasts are visually on top
     this.container.insertBefore(toast, this.container.firstChild);
-    this.activeToasts.push(toast); // add to the start of array (topmost)
+    this.activeToasts.unshift(toast); // add to the start of array (topmost)
     this.updateToastPositions();
   }
 
@@ -73,21 +69,51 @@ export default class ToastManager {
     setTimeout(() => {
       this.container.removeChild(toast);
       const removedIndex = this.activeToasts.indexOf(toast);
-      this.activeToasts.splice(removedIndex, 1);
+      if (removedIndex >= 0) this.activeToasts.splice(removedIndex, 1);
 
-      // If there are queued toasts, show the next one at bottom
+      // If queued toasts exist, bring the next one in
       if (this.toastQueue.length > 0) {
-        const nextToast = this.toastQueue.shift();
-        this.showToastAtBottom(nextToast.message, nextToast.statusColor);
+        const nextToast = this.toastQueue.pop(); // get oldest from queue
+        this.addAndRefreshToasts(nextToast.message, nextToast.statusColor);
+      } else {
+        this.refreshToastDisplay();
       }
-
-      this.updateToastPositions();
     }, 500);
+  }
+
+  addAndRefreshToasts(message, statusColor) {
+    const toast = this.createToastElement(message, statusColor);
+
+    // Add newest at start
+    this.activeToasts.unshift(toast);
+
+    // If visible toasts exceed limit, move oldest to queue
+    if (this.activeToasts.length > this.maxVisible) {
+      const oldest = this.activeToasts.pop();
+      if (oldest) {
+        // Don't destroy — save it for later
+        const msg = oldest.querySelector(".toast-message")?.innerText || "Unknown";
+        const color = statusColor; // Or extract color class if different per toast
+        this.toastQueue.unshift({ message: msg, statusColor: color });
+      }
+    }
+
+    // Refresh visual order
+    this.refreshToastDisplay();
+  }
+
+  refreshToastDisplay() {
+    // Clear and re-render all toasts in newest → oldest order
+    this.container.innerHTML = "";
+    this.activeToasts.forEach(toast => {
+      this.container.appendChild(toast);
+    });
+    this.updateToastPositions();
   }
 
   updateToastPositions() {
     this.activeToasts.forEach((toast, index) => {
-      const offset = (this.activeToasts.length - 1 - index) * 5;
+      const offset = index * 5;
       toast.style.transform = `translate(${offset}px, ${offset}px)`;
       toast.style.zIndex = 100 + (this.activeToasts.length - 1 - index);
     });
