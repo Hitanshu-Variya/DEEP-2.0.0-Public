@@ -52,7 +52,7 @@ export default class DashboardSummaryTable {
     this.showLoading();
 
     // First do POST to refresh backend
-    return fetch(`${contextPath}admin/admin-dashboard/refresh-details`, {
+    return fetch(`${contextPath}admin/refresh-phase-details`, {
       method: "POST",
       headers: { [csrfHeader]: csrfToken }
     })

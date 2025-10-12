@@ -48,7 +48,6 @@ export default class RunAllocationSummary {
   }
 
   async refreshSummary() {
-    console.log("Here")
     this.showLoading();
     try {
       const res = await fetch(`${this.contextPath}admin/run-allocation/refresh-summary`);
