@@ -14,6 +14,26 @@ if(allocationStatus) {
 
 const allocationSummary = new RunAllocationSummary({ contextPath, toastManager });
 
+// Handle reload button click
+const reloadButton = document.getElementById('reloadSummaryBtn');
+if (reloadButton) {
+  reloadButton.addEventListener('click', () => {
+    const img = reloadButton.querySelector('img');
+    if (!img) return;
+
+    // Prevent multiple clicks while loading
+    img.classList.add('animate-spin', 'opacity-60', 'cursor-not-allowed');
+    reloadButton.style.pointerEvents = 'none';
+
+    allocationSummary.refreshSummary()
+      .finally(() => {
+        // Restore state after refresh completes
+        img.classList.remove('animate-spin', 'opacity-60', 'cursor-not-allowed');
+        reloadButton.style.pointerEvents = 'auto';
+      });
+  });
+}
+
 const updateSeatBtn = document.getElementById("updateSeatBtn");
 const seatMatrixContainer = document.getElementById("seatMatrixContainer");
 const seatMatrixUpload = document.getElementById("seatMatrixUpload");
