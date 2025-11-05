@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("requirements-container");
 
     studentRequirements.forEach(req => {
-        const label = categoryLabels[req.category] || 'Other';
+        const label = req.category || 'Other';
         const courseCount = req.courseCnt;
 
         // Outer div with class "flex"
