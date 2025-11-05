@@ -28,7 +28,7 @@ export default class RequirementManager {
         const div = document.createElement("div");
         div.className = "flex items-center";
         div.innerHTML = `
-            <label class="text-lg font-semibold text-gray-800 w-16 text-right">${category} :</label>
+            <label class="text-lg font-semibold text-gray-800 flex-1 text-right">${category} :</label>
             <input type="text" value="${obj.courseCnt}" readonly
                    class="ml-4 px-3 py-1 border-2 border-gray-300 rounded-lg bg-gray-200 text-center font-medium w-16 cursor-not-allowed" />
         `;
@@ -49,7 +49,7 @@ export default class RequirementManager {
         const prefill = this.values[category] !== undefined ? this.values[category] : '';
 
         div.innerHTML = `
-          <label class="text-lg font-semibold text-gray-800 w-16 text-right">${category} :</label>
+          <label class="text-lg font-semibold text-gray-800 flex-1 text-right">${category} :</label>
           <input type="number" name="${category}" value="${prefill}"
             class="ml-4 px-3 py-1 border-2 border-gray-300 rounded-lg bg-white text-center font-medium w-16 appearance-none
             [&::-webkit-outer-spin-button]:appearance-none
